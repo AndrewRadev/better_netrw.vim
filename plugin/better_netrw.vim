@@ -56,7 +56,7 @@ function! s:PasteAtPosition(line, col, text)
   setlocal virtualedit=all
 
   try
-    call sj#PushCursor()
+    let saved_view = winsaveview()
     let pos = getpos('.')
     let pos[1] = line
     let pos[2] = col
@@ -66,7 +66,7 @@ function! s:PasteAtPosition(line, col, text)
     normal! "zP
 
   finally
-    call sj#PopCursor()
+    call winrestview(saved_view)
   endtry
 endfunction
 
